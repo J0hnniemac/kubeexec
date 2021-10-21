@@ -11,6 +11,8 @@
 		5227C2D22722014F00B6D418 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227C2D12722014F00B6D418 /* ContentView.swift */; };
 		5227C2D42722015000B6D418 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5227C2D32722015000B6D418 /* Assets.xcassets */; };
 		5227C2D72722015000B6D418 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5227C2D62722015000B6D418 /* Preview Assets.xcassets */; };
+		529F21CA27221AC00022FC64 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529F21C927221AC00022FC64 /* AppDelegate.swift */; };
+		529F21CC27221B430022FC64 /* launchexec.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 529F21CB27221B430022FC64 /* launchexec.scpt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		5227C2D32722015000B6D418 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5227C2D62722015000B6D418 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5227C2D82722015000B6D418 /* kubeexec.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = kubeexec.entitlements; sourceTree = "<group>"; };
+		529F21C927221AC00022FC64 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		529F21CB27221B430022FC64 /* launchexec.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = launchexec.scpt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +60,9 @@
 				5227C2D12722014F00B6D418 /* ContentView.swift */,
 				5227C2D32722015000B6D418 /* Assets.xcassets */,
 				5227C2D82722015000B6D418 /* kubeexec.entitlements */,
+				529F21CB27221B430022FC64 /* launchexec.scpt */,
 				5227C2D52722015000B6D418 /* Preview Content */,
+				529F21C927221AC00022FC64 /* AppDelegate.swift */,
 			);
 			path = kubeexec;
 			sourceTree = "<group>";
@@ -128,6 +134,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5227C2D72722015000B6D418 /* Preview Assets.xcassets in Resources */,
+				529F21CC27221B430022FC64 /* launchexec.scpt in Resources */,
 				5227C2D42722015000B6D418 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				529F21CA27221AC00022FC64 /* AppDelegate.swift in Sources */,
 				5227C2D22722014F00B6D418 /* ContentView.swift in Sources */,
 				5227C2D02722014F00B6D418 /* kubeexecApp.swift in Sources */,
 			);
