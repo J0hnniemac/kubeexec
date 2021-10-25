@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040767B02726EBD90041A04A /* kubeExecModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040767AF2726EBD90041A04A /* kubeExecModel.swift */; };
 		5227C2D02722014F00B6D418 /* kubeexecApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227C2CF2722014F00B6D418 /* kubeexecApp.swift */; };
 		5227C2D22722014F00B6D418 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227C2D12722014F00B6D418 /* ContentView.swift */; };
 		5227C2D42722015000B6D418 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5227C2D32722015000B6D418 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040767AF2726EBD90041A04A /* kubeExecModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kubeExecModel.swift; sourceTree = "<group>"; };
 		5227C2CC2722014F00B6D418 /* kubeexec.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kubeexec.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5227C2CF2722014F00B6D418 /* kubeexecApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kubeexecApp.swift; sourceTree = "<group>"; };
 		5227C2D12722014F00B6D418 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				529F21CB27221B430022FC64 /* launchexec.scpt */,
 				5227C2D52722015000B6D418 /* Preview Content */,
 				529F21C927221AC00022FC64 /* AppDelegate.swift */,
+				040767AF2726EBD90041A04A /* kubeExecModel.swift */,
 			);
 			path = kubeexec;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 				529F21CA27221AC00022FC64 /* AppDelegate.swift in Sources */,
 				5227C2D22722014F00B6D418 /* ContentView.swift in Sources */,
 				5227C2D02722014F00B6D418 /* kubeexecApp.swift in Sources */,
+				040767B02726EBD90041A04A /* kubeExecModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

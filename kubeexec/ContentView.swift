@@ -9,21 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var nameSpaces: [String] = ["default","audit"]
-    
-    @State private var xk8SContextNamespaces: [K8SContextNamespaces] = [K8SContextNamespaces(context: "docker-desktop", namespace: "default"), K8SContextNamespaces(context: "docker-desktop", namespace: "k8s"),K8SContextNamespaces(context: "docker-desktop", namespace: "jenkins")]
-     
-    @State private var k8SContextNamespaces: [K8SContextNamespaces]?
+    @StateObject private var kubeexecmodel = kubeExecModel()
 
     
     var body: some View {
         VStack() {
             
-            headerView(k8SContextNamespaces: $k8SContextNamespaces)
-            if(k8SContextNamespaces != nil){
-                k8sListView(k8SContextNamespaces: $k8SContextNamespaces)
+            headerView(k8SContextNamespaces: $kubeexecmodel.data.k8SContextNamespaces,xxkubeExecModel: kubeexecmodel)
+            if(kubeexecmodel.data.k8SContextNamespaces != nil){
+                k8sListView(k8SContextNamespaces: $kubeexecmodel.data.k8SContextNamespaces)
             }
-            
+            HStack() {
+                Button("Restore Previous", action: {
+                    print("Restore Previous")
+                
+                })
+                Button("Save", action: {
+                    print("Save")
+                
+                })
+            }
             
         }
         
@@ -31,42 +36,59 @@ struct ContentView: View {
 }
 
 
-struct selectContextView : View{
-    var k8scontext = ["docker-desktop", "dev", "qa", "prod"]
-        @State private var selectedContext = "dev"
-    var body: some View {
-        VStack {
-                    Picker("", selection: $selectedContext) {
-                        ForEach(k8scontext, id: \.self) {
-                            Text($0)
-                        }
-                    }
-//                    Text("You selected: \(selectedContext)")
-                }
-    
-    
-    }
-}
-
 struct headerView :  View {
     @Binding var k8SContextNamespaces: [K8SContextNamespaces]?
+    @StateObject var xxkubeExecModel :kubeExecModel
     @State private var nameSpace: String = "default"
     var body: some View {
         HStack(){
-            selectContextView()
+            selectContextView(kubeExecModel: xxkubeExecModel)
             TextField("Enter Namespace", text: $nameSpace)
             Button("+", action: {
                 print("Add")
+                if(xxkubeExecModel.data.selectedContext.isEmpty == false) {
+                    if(xxkubeExecModel.data.k8SContextNamespaces != nil){
+                        xxkubeExecModel.data.k8SContextNamespaces?.append(K8SContextNamespaces(context: xxkubeExecModel.data.selectedContext, namespace: nameSpace))
+                    } else {
+                        xxkubeExecModel.data.k8SContextNamespaces = [K8SContextNamespaces(context: xxkubeExecModel.data.selectedContext, namespace: nameSpace)]
+                    }
+                }
+                    
+                    
+                /*
                 if(k8SContextNamespaces != nil){
                     k8SContextNamespaces!.append(K8SContextNamespaces(context: "docker-desktop", namespace: "default"))
                 }else {
                     k8SContextNamespaces = [K8SContextNamespaces(context: "docker-desktop", namespace: "k8s")]
                 }
-                
+                */
             })
         }
     }
 }
+
+struct selectContextView : View{
+    @StateObject var kubeExecModel :kubeExecModel
+    //var k8scontext = ["docker-desktop", "dev", "qa", "prod"]
+    
+       
+    var body: some View {
+        VStack {
+            Picker("", selection: $kubeExecModel.data.selectedContext) {
+                ForEach(kubeExecModel.data.k8SContext ?? ["no context available"], id: \.self) {
+                            Text($0)
+                        }
+                    }
+           // Text("You selected: \(kubeExecModel.selectedContext)")
+                }
+    
+        
+        
+        
+    }
+}
+
+
 
 
 struct k8sListView :  View {
@@ -92,7 +114,4 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct K8SContextNamespaces : Hashable {
-    var context : String!
-    var namespace: String!
-}
+
