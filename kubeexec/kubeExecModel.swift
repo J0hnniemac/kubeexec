@@ -6,11 +6,16 @@
 //
 
 import Foundation
+import SwiftUI
 final class kubeExecModel : ObservableObject {
   //  @Published var nameSpaces: [String]?
    // @Published var k8SContextNamespaces: [K8SContextNamespaces]?
    // @Published var k8SContext: [String]?
  //   @Published var selectedContext = ""
+    var statusBarItem: NSStatusItem!
+    var statusBar:NSStatusBar!
+    var statusBarMenu:NSMenu!
+    var runningPodsList: [String]!
     
     @Published var data = kubeExecModelStruct()
     
@@ -24,6 +29,25 @@ final class kubeExecModel : ObservableObject {
         print(contexts)
         data.k8SContext = contexts.components(separatedBy: "\n")
     }
+    
+    func saveData(){
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(data) {
+            let defaults = UserDefaults.standard
+            defaults.set(encoded, forKey: "SavedDara")
+        }
+    }
+    func restoreData(){
+        let defaults = UserDefaults.standard
+        if let savedData = defaults.object(forKey: "SavedDara") as? Data {
+            let decoder = JSONDecoder()
+            if let loadedData = try? decoder.decode(kubeExecModelStruct.self, from: savedData) {
+                
+                data = loadedData
+            }
+        }
+    }
+    
     func shell(_ command: String) -> String {
         let task = Process()
         let pipe = Pipe()
@@ -39,10 +63,17 @@ final class kubeExecModel : ObservableObject {
         
         return output
     }
+    
+    
+    
+    
+    
+    
 }
 struct K8SContextNamespaces : Hashable,Codable {
     var context : String!
     var namespace: String!
+    
 }
 
 struct kubeExecModelStruct : Codable{
