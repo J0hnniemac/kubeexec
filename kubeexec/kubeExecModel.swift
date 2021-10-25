@@ -38,6 +38,7 @@ final class kubeExecModel : ObservableObject {
         }
     }
     func restoreData(){
+        print("restoreData")
         let defaults = UserDefaults.standard
         if let savedData = defaults.object(forKey: "SavedDara") as? Data {
             let decoder = JSONDecoder()

@@ -12,8 +12,9 @@ class AppDelegate: NSObject, NSApplicationDelegate,ObservableObject {
     var statusBarMenu:NSMenu!
     var runningPodsList: [String]!
     
+    
     // TODO: Make this a configuration item
-    var namespace = "default"
+   // var namespace = "default"
     override init() {
         Swift.print("AppDelegate.init")
         super.init()
@@ -23,12 +24,13 @@ class AppDelegate: NSObject, NSApplicationDelegate,ObservableObject {
     
     func applicationWillFinishLaunching(_ notification: Notification) {
         Swift.print("AppDelegate.applicationWillFinishLaunching")
+        basicMenu()
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         Swift.print("AppDelegate.applicationDidFinishLaunching")
         
-      basicMenu()
+      
     }
     
     
@@ -95,7 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate,ObservableObject {
             withTitle: "Refresh3",
             action: #selector(AppDelegate.refreshContext),
             keyEquivalent: "")
-        GetKubePods()
+       // GetKubePods()
     }
     
     func runKubeExec(){
@@ -113,53 +115,18 @@ class AppDelegate: NSObject, NSApplicationDelegate,ObservableObject {
         // print(xx)
         return trimmed
     }
-    
-    func GetKubePods(){
-        
-        let shellcmd = "/usr/local/bin/kubectl get pods --namespace=\(namespace) |grep Running | awk '{print $1}'"
-        // let runningPods = shell("/usr/local/bin/kubectl get pods --namespace=\(namespace) |grep Running | awk '{print $1}'")
-        let runningPods = shell(shellcmd)
-        
-        
-        let existingCount = statusBarMenu.items.count
-        print("***")
-        print("existing count \(existingCount)")
-        if(existingCount>1){
-            //delete old menu items
-            for i in stride(from: existingCount-1, to: 0, by: -1) {
-                print(i)
-                statusBarMenu.removeItem(at: i)
-            }
-            
-        }
-        
-        runningPodsList = runningPods.components(separatedBy: "\n")
-        
-        //statusBar.
-        // action: #selector(AppDelegate.refreshContext),
-        
-        for pod in runningPodsList {
-            
-            print(pod)
-            statusBarMenu.addItem(
-                withTitle: pod,
-                action: #selector(AppDelegate.execToPod(sender:)),
-                keyEquivalent: "")
-        }
-        
-        // let trimmed = current.filter { !$0.isWhitespace }
-        // return trimmed
-    }
     @objc
     func execToPod(sender: Any)
     {
         let menuitem = sender as! NSMenuItem
         print(menuitem.title)
         let mt = menuitem.title
-        let startIndex = mt.index(of:":")!
+        let startIndex = mt.firstIndex(of:":")!
         let nextIndex = mt.index(startIndex, offsetBy: 1)
-        
+        let preIndex = mt.index(startIndex, offsetBy: -1)
         let podname = mt[nextIndex...] // fo
+        let namespace = mt[...preIndex]
+        
         //let openterm = "/usr/bin/osascript ~/.kube/launchexec.scpt \(menuitem.title) &"
         var stringPath = ""
         stringPath = Bundle.main.path(forResource: "launchexec", ofType: "scpt")!
@@ -176,6 +143,7 @@ class AppDelegate: NSObject, NSApplicationDelegate,ObservableObject {
     
     
     func CreateMenus(contextNamespaces:[K8SContextNamespaces],selectedContext:String){
+      /*
         let existingCount = statusBarMenu.items.count
         
         print("***")
@@ -186,9 +154,10 @@ class AppDelegate: NSObject, NSApplicationDelegate,ObservableObject {
                 print(i)
                 statusBarMenu.removeItem(at: i)
             }
+        
         }
-        
-        
+        */
+        statusBarMenu.removeAllItems()
         for CNS in contextNamespaces {
             if(CNS.context == selectedContext){
                 //get all running pods for this namespace
@@ -204,7 +173,7 @@ class AppDelegate: NSObject, NSApplicationDelegate,ObservableObject {
                     print(pod)
                     if(!pod.isEmpty && !pod.lowercased().contains("no resources")){
                         statusBarMenu.addItem(
-                            withTitle: "\(selectedContext):\(pod)",
+                            withTitle: "\(CNS.namespace ?? ""):\(pod)",
                             action: #selector(AppDelegate.execToPod(sender:)),
                             keyEquivalent: "")
                     }
